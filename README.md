@@ -1,41 +1,78 @@
-practical guide for **Linux Bash scripting** with working code examples and brief tutorials for each. I’ll cover:
-
-* Basics of bash scripting
-* Variables
-* Conditionals
-* Loops
-* Functions
-* Command line arguments
-* Arrays
-* File handling
-* User input
-* Practical mini-projects
+# 🐧 Linux Bash Scripting – Complete Practical Guide
 
 ---
 
-## 📜 Bash Scripting Essentials
+## 📌 Introduction to Shell and Bash Environment
 
-### 📌 How to Create and Run a Bash Script
+* **Shell** = Interface between user and Linux kernel
+* **Bash (Bourne Again Shell)** = Most widely used shell in Linux
+* Acts as:
 
-**Create a file:**
+  * Command interpreter
+  * Scripting language
+  * Automation tool
+
+👉 Check current shell:
+
+```bash
+echo $SHELL
+```
+
+👉 List available shells:
+
+```bash
+cat /etc/shells
+```
+
+---
+
+## 🧩 Types of Shells and Execution Context
+
+### 🔹 Types of Shells
+
+* **bash** – Default Linux shell
+* **sh** – Original shell
+* **zsh** – Advanced interactive shell
+* **ksh** – Korn shell
+
+### 🔹 Execution Context
+
+* **Interactive shell**
+
+  * User enters commands manually
+* **Non-interactive shell**
+
+  * Executes scripts
+
+👉 Check process:
+
+```bash
+ps -p $$
+```
+
+---
+
+## 📜 Writing and Executing Basic Shell Scripts
+
+### Create Script
 
 ```bash
 nano script.sh
 ```
 
-**Add this at the top:**
+### Add Shebang
 
 ```bash
 #!/bin/bash
 ```
 
-**Make it executable:**
+### Give Permission
 
 ```bash
 chmod +x script.sh
 ```
 
-**Run it:**
+### Execute
 
 ```bash
 ./script.sh
@@ -43,7 +80,110 @@ chmod +x script.sh
 
 ---
 
-## ✅ Basic Hello World Script
+## ⚙️ Script Structure and Shebang
+
+```bash
+#!/bin/bash
+
+# Author: Atul
+# Description: Sample script
+
+echo "Script Started"
+```
+
+📌 **Shebang (`#!/bin/bash`)**
+
+* Defines interpreter
+* Must be first line
+* Without it → system may use wrong shell
+
+---
+
+## 📦 Variables and Environment Variables
+
+### 🔹 Local Variables
+
+```bash
+name="Atul"
+echo $name
+```
+
+### 🔹 Read-only Variable
+
+```bash
+readonly PI=3.14
+```
+
+### 🔹 Delete Variable
+
+```bash
+unset name
+```
+
+### 🔹 Environment Variables
+
+```bash
+echo $HOME
+echo $PATH
+```
+
+📌 Export variable:
+
+```bash
+export VAR=value
+```
+
+---
+
+## ⌨️ User Input Handling
+
+```bash
+#!/bin/bash
+read -p "Enter your name: " name
+echo "Hello $name"
+```
+
+📌 Hidden input (password):
+
+```bash
+read -s password
+```
+
+---
+
+## ➕ Basic Operators
+
+### 🔹 Arithmetic
+
+```bash
+a=10
+b=5
+echo $((a + b))
+```
+
+### 🔹 Relational
+
+```bash
+if [ $a -gt $b ]; then
+  echo "a is greater"
+fi
+```
+
+### 🔹 Logical
+
+```bash
+if [ $a -gt 5 ] && [ $b -lt 10 ]; then
+  echo "Condition True"
+fi
+```
+
+---
+
+# 🚀 Bash Scripting Essentials (Practical)
+
+---
+
+## ✅ Hello World
 
 ```bash
 #!/bin/bash
@@ -52,29 +192,20 @@ echo "Hello, World!"
 
 ---
 
-## 📦 Variables
+## 📦 Variables Example
 
 ```bash
-#!/bin/bash
 name="Atul"
 echo "Welcome, $name!"
 ```
-
-**Variable Types:**
-
-* Local: `var=value`
-* Read-only: `readonly var=value`
-* Delete var: `unset var`
 
 ---
 
 ## 📑 User Input
 
 ```bash
-#!/bin/bash
-echo "Enter your name:"
-read name
-echo "Hello, $name"
+read -p "Enter name: " name
+echo "Hello $name"
 ```
 
 ---
@@ -82,8 +213,6 @@ echo "Hello, $name"
 ## 🔄 If-Else Condition
 
 ```bash
-#!/bin/bash
-echo "Enter a number:"
 read num
 if [ $num -gt 10 ]; then
   echo "Greater than 10"
@@ -97,8 +226,7 @@ fi
 ## 🔁 For Loop
 
 ```bash
-#!/bin/bash
-for i in 1 2 3 4 5
+for i in {1..5}
 do
   echo "Iteration $i"
 done
@@ -109,11 +237,10 @@ done
 ## 🔄 While Loop
 
 ```bash
-#!/bin/bash
 count=1
 while [ $count -le 5 ]
 do
-  echo "Count is $count"
+  echo "Count: $count"
   ((count++))
 done
 ```
@@ -123,7 +250,6 @@ done
 ## ⚙️ Functions
 
 ```bash
-#!/bin/bash
 greet() {
   echo "Hello, $1"
 }
@@ -135,13 +261,12 @@ greet "Atul"
 ## 📚 Command Line Arguments
 
 ```bash
-#!/bin/bash
-echo "Script name: $0"
-echo "First arg: $1"
-echo "Second arg: $2"
+echo "Script: $0"
+echo "Arg1: $1"
+echo "Arg2: $2"
 ```
 
-**Run it:**
+Run:
 
 ```bash
 ./script.sh hello world
@@ -152,22 +277,19 @@ echo "Second arg: $2"
 ## 📦 Arrays
 
 ```bash
-#!/bin/bash
 fruits=("Apple" "Banana" "Cherry")
-echo "First fruit: ${fruits[0]}"
-echo "All fruits: ${fruits[@]}"
+echo ${fruits[0]}
+echo ${fruits[@]}
 ```
 
 ---
 
-## 📂 File Handling — Read a file line by line
+## 📂 File Handling
 
 ```bash
-#!/bin/bash
-file="sample.txt"
 while read line; do
-  echo "Line: $line"
-done < "$file"
+  echo "$line"
+done < file.txt
 ```
 
 ---
@@ -175,84 +297,67 @@ done < "$file"
 ## 📝 Case Statement
 
 ```bash
-#!/bin/bash
-echo "Enter a number between 1-3:"
 read num
 case $num in
-  1) echo "You picked One" ;;
-  2) echo "You picked Two" ;;
-  3) echo "You picked Three" ;;
+  1) echo "One" ;;
+  2) echo "Two" ;;
   *) echo "Invalid" ;;
 esac
 ```
 
 ---
 
-## 📌 Practical Mini Projects
+# 🧪 Practical Mini Projects
 
-### 1️⃣ Disk Usage Monitor
+---
+
+## 💾 Disk Usage Monitor
 
 ```bash
-#!/bin/bash
 THRESHOLD=80
-usage=$(df -h / | grep / | awk '{ print $5}' | sed 's/%//')
+usage=$(df -h / | awk 'NR==2 {print $5}' | sed 's/%//')
+
 if [ $usage -gt $THRESHOLD ]; then
-  echo "Disk usage is above $THRESHOLD%"
+  echo "Disk usage is high: $usage%"
 fi
 ```
 
 ---
 
-### 2️⃣ Backup Script
+## 📦 Backup Script
 
 ```bash
-#!/bin/bash
 src="/etc"
 dest="/tmp/backup_$(date +%F_%T).tar.gz"
+
 tar -czf $dest $src
-echo "Backup created at $dest"
+echo "Backup created: $dest"
 ```
 
 ---
 
-### 3️⃣ Simple Calculator
+## 🧮 Simple Calculator
 
 ```bash
-#!/bin/bash
-echo "Enter first number:"
-read a
-echo "Enter second number:"
-read b
-echo "Enter operation (+ - * /):"
-read op
+read -p "Enter a: " a
+read -p "Enter b: " b
+read -p "Operator (+ - * /): " op
 
 case $op in
-  +) res=$((a + b)) ;;
-  -) res=$((a - b)) ;;
-  \*) res=$((a * b)) ;;
-  /) res=$((a / b)) ;;
-  *) echo "Invalid operation"; exit 1 ;;
+  +) echo $((a+b)) ;;
+  -) echo $((a-b)) ;;
+  \*) echo $((a*b)) ;;
+  /) echo $((a/b)) ;;
+  *) echo "Invalid" ;;
 esac
-
-echo "Result: $res"
 ```
 
 ---
 
-## 📖 Learning Resources
-
-| Resource                   | Link                                                                                                     |
-| :------------------------- | :------------------------------------------------------------------------------------------------------- |
-| Bash Official Manual       | [https://www.gnu.org/software/bash/manual/bash.html](https://www.gnu.org/software/bash/manual/bash.html) |
-| ShellCheck (script linter) | [https://www.shellcheck.net](https://www.shellcheck.net)                                                 |
-| Bash Scripting Cheatsheet  | [https://devhints.io/bash](https://devhints.io/bash)                                                     |
-
----
-
-## 📦 Suggested GitHub Repo Structure
+# 📂 Suggested GitHub Repo Structure
 
 ```
-bash-scripting/
+linux-bash-scripting/
 ├── 01-hello-world.sh
 ├── 02-variables.sh
 ├── 03-user-input.sh
@@ -263,9 +368,37 @@ bash-scripting/
 ├── 08-arrays.sh
 ├── 09-file-handling.sh
 ├── 10-case-statement.sh
+├── 11-operators.sh
+├── 12-environment-vars.sh
 ├── projects/
 │   ├── disk-monitor.sh
 │   ├── backup-script.sh
 │   └── calculator.sh
 └── README.md
 ```
+
+---
+
+# ⚡ Points to Remember (Interview + Practical)
+
+* `#!/bin/bash` → mandatory for script interpreter
+* Always use **chmod +x** before execution
+* Prefer `$(command)` over backticks
+* Use **double quotes** to avoid word splitting issues
+* Use `-eq, -ne, -gt, -lt` for numeric comparison
+* Use `=` for string comparison
+* Use `[[ ]]` (modern) instead of `[ ]` when possible
+* Always validate user input
+* Debug script:
+
+```bash
+bash -x script.sh
+```
+
+* Check syntax:
+
+```bash
+bash -n script.sh
+```
+
+---

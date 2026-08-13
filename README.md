@@ -39,6 +39,20 @@ sudo dnf localinstall -y powershell-7.4.7-1.rh.x86_64.rpm
 pwsh
 
 ```
+
+### FISH SHELL
+
+```
+# Navigate to the repository configuration directory
+cd /etc/yum.repos.d/
+
+# Download the CentOS 7 compatible fish repository configuration
+sudo wget https://download.opensuse.org/repositories/shells:fish:release:3/CentOS_7/shells:fish:release:3.repo
+
+# Install the fish package
+sudo yum install fish -y
+
+```
 ---
 
 ## 🧩 Types of Shells and Execution Context

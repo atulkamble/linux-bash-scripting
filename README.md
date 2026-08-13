@@ -24,6 +24,21 @@ echo $SHELL
 cat /etc/shells
 ```
 
+## INSTALL POWERSHELL 
+```
+# 1. Update your system packages
+sudo dnf update -y  # Use 'yum' instead of 'dnf' if on Amazon Linux 2
+
+# 2. Download the official Microsoft PowerShell universal RPM package
+wget https://github.com/PowerShell/PowerShell/releases/download/v7.4.7/powershell-7.4.7-1.rh.x86_64.rpm
+
+# 3. Install the package using the local package manager
+sudo dnf localinstall -y powershell-7.4.7-1.rh.x86_64.rpm
+
+# 4. Launch PowerShell
+pwsh
+
+```
 ---
 
 ## 🧩 Types of Shells and Execution Context

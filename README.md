@@ -356,11 +356,17 @@ fi
 ## 📦 Backup Script
 
 ```bash
-src="/etc"
-dest="/tmp/backup_$(date +%F_%T).tar.gz"
+#!/bin/bash
 
-tar -czf $dest $src
-echo "Backup created: $dest"
+src="/etc/atul"
+dest="/tmp/backup_$(date +%F_%H-%M-%S).zip"
+
+if sudo zip -r "$dest" "$src"; then
+    echo "Backup created: $dest"
+else
+    echo "Backup failed" >&2
+    exit 1
+fi
 ```
 
 ---
